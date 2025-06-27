@@ -1,0 +1,1004 @@
+.card-hand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-hand.opponent {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Header avec nom du joueur et énergie */
+.card-hand-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.card-hand-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.player-name {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.energy-display {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: rgba(255, 235, 59, 0.2);
+  border: 1px solid rgba(255, 235, 59, 0.4);
+  border-radius: 20px;
+}
+
+.energy-value {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.1em;
+}
+
+.energy-icon {
+  filter: drop-shadow(0 0 4px #ffeb3b);
+  font-size: 1.1em;
+}
+
+/* Actions avec gros bouton refresh */
+.card-hand-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.refresh-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(145deg, #2ecc71, #27ae60);
+  border: 2px solid rgba(46, 204, 113, 0.8);
+  border-radius: 25px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9em;
+}
+
+.refresh-all-btn.enabled:hover {
+  background: linear-gradient(145deg, #27ae60, #229954);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+}
+
+.refresh-all-btn.disabled {
+  background: rgba(149, 165, 166, 0.5);
+  border-color: rgba(149, 165, 166, 0.3);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.refresh-icon {
+  font-size: 1.2em;
+}
+
+.refresh-text {
+  font-size: 0.9em;
+}
+
+.refresh-cost {
+  font-size: 0.8em;
+  opacity: 0.9;
+}
+
+.illegal-notice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(241, 196, 15, 0.2);
+  border: 1px solid rgba(241, 196, 15, 0.4);
+  border-radius: 12px;
+  font-size: 0.8em;
+  color: #fff;
+}
+
+.illegal-icon {
+  font-size: 1em;
+}
+
+.illegal-text {
+  font-size: 0.8em;
+}
+
+/* Grille des cartes */
+.card-slots {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.card-slot {
+  position: relative;
+  width: 120px;
+  height: 160px;
+  background: linear-gradient(145deg, #2c3e50, #34495e);
+  border: 3px solid #3498db;
+  border-left: 6px solid #3498db; /* Bordure colorée selon le type */
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+}
+
+.card-slot.empty {
+  background: rgba(255, 255, 255, 0.1);
+  border: 3px dashed rgba(255, 255, 255, 0.3);
+  border-left: 6px dashed rgba(255, 255, 255, 0.3);
+  cursor: default;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-empty-indicator {
+  font-size: 2.5em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.card-slot.playable {
+  border-color: #2ecc71;
+  border-left-color: inherit; /* Garde la couleur du type */
+  box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+  transform: translateY(-3px);
+}
+
+.card-slot.playable:hover {
+  border-color: #27ae60;
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.6);
+  transform: translateY(-5px);
+}
+
+.card-slot.playable:active {
+  transform: translateY(-2px);
+}
+
+.card-slot.unaffordable {
+  border-color: #e74c3c;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.card-slot.illegal {
+  border-color: #f39c12;
+  background: linear-gradient(145deg, #e67e22, #d35400);
+}
+
+.card-slot.illegal::after {
+  content: '⚠️';
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(241, 196, 15, 0.9);
+  color: #333;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-weight: bold;
+  z-index: 3;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* Animation de carte en cours de jeu */
+.card-slot.playing {
+  animation: cardPlaying 0.4s ease-out;
+  border-color: #ffeb3b;
+  box-shadow: 0 0 25px rgba(255, 235, 59, 0.8);
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+@keyframes cardPlaying {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05) rotate(-2deg);
+    filter: brightness(1.3) saturate(1.2);
+  }
+  100% {
+    transform: scale(0.95) rotate(0deg);
+    filter: brightness(0.9) saturate(0.8);
+  }
+}
+
+/* Contenu des cartes */
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-piece {
+  font-size: 2.8em;
+}
+
+.card-type-icon {
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+.card-move-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.card-move {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8em;
+  font-family: 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.card-arrow {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.card-san {
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-cost {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.9em;
+  background: rgba(255, 235, 59, 0.2);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 235, 59, 0.4);
+}
+
+.cost-icon {
+  filter: drop-shadow(0 0 2px #ffeb3b);
+}
+
+.card-hotkey {
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Effet de consommation de carte */
+.card-consumption-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 235, 59, 0.9);
+  border-radius: 8px;
+  z-index: 10;
+  animation: consumptionEffect 0.4s ease-out;
+}
+
+@keyframes consumptionEffect {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+}
+
+.energy-burst {
+  font-size: 3.5em;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 235, 59, 0.8);
+  animation: energyBurst 0.4s ease-out;
+}
+
+@keyframes energyBurst {
+  0% {
+    transform: scale(0.5) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0.8;
+  }
+}
+
+.play-indicator {
+  font-weight: bold;
+  font-size: 1em;
+  color: #333;
+  text-shadow: none;
+  margin-top: 8px;
+  animation: playIndicator 0.4s ease-out;
+}
+
+@keyframes playIndicator {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aide */
+.card-hand-help {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85em;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .card-hand-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .card-hand-actions {
+    align-items: stretch;
+  }
+  
+  .card-slots {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .card-slot {
+    width: 100px;
+    height: 130px;
+  }
+  
+  .card-piece {
+    font-size: 2.2em !important;
+  }
+  
+  .card-move {
+    font-size: 0.7em !important;
+  }
+  
+  .card-san {
+    font-size: 0.9em !important;
+  }
+  
+  .energy-burst {
+    font-size: 2.8em !important;
+  }
+  
+  .play-indicator {
+    font-size: 0.9em !important;
+  }
+  
+  .refresh-all-btn {
+    font-size: 0.8em;
+    padding: 10px 12px;
+  }
+}
+
+/* Gestion spéciale des situations d'échec */
+.check-indicator {
+  color: #ff4444 !important;
+  font-weight: bold;
+  text-shadow: 0 0 4px rgba(255, 68, 68, 0.6);
+  animation: checkPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes checkPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.check-notice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(255, 68, 68, 0.2);
+  border: 1px solid rgba(255, 68, 68, 0.4);
+  border-radius: 12px;
+  font-size: 0.8em;
+  color: #fff;
+}
+
+.check-icon {
+  font-size: 1em;
+  animation: checkPulse 1.5s ease-in-out infinite;
+}
+
+.check-text {
+  font-size: 0.8em;
+}
+
+.card-slot.check-emergency {
+  border-color: #ff4444 !important;
+  box-shadow: 0 0 12px rgba(255, 68, 68, 0.4) !important;
+  animation: emergencyPulse 2s ease-in-out infinite;
+}
+
+@keyframes emergencyPulse {
+  0%, 100% { 
+    border-color: #ff4444;
+    box-shadow: 0 0 12px rgba(255, 68, 68, 0.4);
+  }
+  50% { 
+    border-color: #ff6666;
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.6);
+  }
+}
+
+.emergency-indicator {
+  font-size: 0.8em;
+  color: #ff4444;
+  margin-left: 2px;
+  animation: checkPulse 1.5s ease-in-out infinite;
+}
+
+.card-slot.check-emergency:hover {
+  border-color: #ff6666 !important;
+  box-shadow: 0 0 25px rgba(255, 68, 68, 0.7) !important;
+  transform: translateY(-3px);
+}
+
+.card-slot.check-emergency .card-cost {
+  background: rgba(255, 68, 68, 0.2) !important;
+  border-color: rgba(255, 68, 68, 0.4) !important;
+}
+
+/* Responsive - MOBILE OPTIMISÉ pour les cartes */
+@media (max-width: 1200px) {
+  .card-hand-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .card-hand-actions {
+    align-items: stretch;
+  }
+  
+  .card-slots {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .card-slot {
+    width: 110px;
+    height: 140px;
+  }
+  
+  .card-piece {
+    font-size: 2.4em !important;
+  }
+}
+
+/* MOBILE - CARTES OPTIMISÉES */
+@media (max-width: 768px) {
+  .card-hand {
+    padding: 12px;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+  }
+  
+  .card-hand-header {
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  
+  .player-name {
+    font-size: 1em;
+    text-align: center;
+  }
+  
+  .energy-display {
+    padding: 4px 10px;
+    justify-content: center;
+  }
+  
+  .energy-value {
+    font-size: 1em;
+  }
+  
+  /* CARTES MOBILE - LAYOUT HORIZONTAL COMPACT */
+  .card-slots {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 4px 0;
+  }
+  
+  .card-slot {
+    width: 85px;
+    height: 110px;
+    min-width: 85px;
+    flex-shrink: 0;
+    border-width: 2px;
+    border-radius: 8px;
+  }
+  
+  .card-content {
+    padding: 6px;
+  }
+  
+  .card-piece {
+    font-size: 1.8em !important;
+  }
+  
+  .card-type-icon {
+    font-size: 0.9em;
+  }
+  
+  .card-move {
+    font-size: 0.6em !important;
+    padding: 2px 4px;
+  }
+  
+  .card-san {
+    font-size: 0.7em !important;
+    margin: 2px 0;
+  }
+  
+  .card-cost {
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  .cost-value {
+    font-size: 0.8em;
+  }
+  
+  .cost-icon {
+    font-size: 0.8em;
+  }
+  
+  .card-hotkey {
+    width: 16px;
+    height: 16px;
+    font-size: 0.7em;
+  }
+  
+  /* ACTIONS MOBILE */
+  .refresh-all-btn {
+    padding: 8px 12px;
+    font-size: 0.8em;
+  }
+  
+  .refresh-text {
+    display: none; /* Cacher le texte sur mobile */
+  }
+  
+  .illegal-notice, .check-notice {
+    padding: 3px 6px;
+    font-size: 0.7em;
+  }
+  
+  /* AIDE MOBILE */
+  .card-hand-help {
+    font-size: 0.75em;
+    margin-top: 4px;
+    padding: 0 4px;
+  }
+}
+
+/* SMARTPHONE PORTRAIT - ULTRA COMPACT */
+@media (max-width: 480px) and (orientation: portrait) {
+  .card-hand {
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-hand-header {
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+  
+  .player-name {
+    font-size: 0.9em;
+  }
+  
+  .energy-display {
+    padding: 3px 8px;
+  }
+  
+  .energy-value {
+    font-size: 0.9em;
+  }
+  
+  /* CARTES ULTRA COMPACTES */
+  .card-slots {
+    gap: 4px;
+    padding: 2px 0;
+  }
+  
+  .card-slot {
+    width: 72px;
+    height: 95px;
+    min-width: 72px;
+    border-width: 2px;
+  }
+  
+  .card-content {
+    padding: 4px;
+  }
+  
+  .card-header {
+    margin-bottom: 2px;
+  }
+  
+  .card-piece {
+    font-size: 1.4em !important;
+  }
+  
+  .card-type-icon {
+    font-size: 0.7em;
+  }
+  
+  .card-move-info {
+    gap: 2px;
+    margin: 2px 0;
+  }
+  
+  .card-move {
+    font-size: 0.5em !important;
+    padding: 1px 3px;
+  }
+  
+  .card-san {
+    font-size: 0.6em !important;
+  }
+  
+  .card-footer {
+    gap: 2px;
+  }
+  
+  .card-cost {
+    padding: 1px 4px;
+  }
+  
+  .cost-value, .cost-icon {
+    font-size: 0.7em;
+  }
+  
+  .card-hotkey {
+    width: 14px;
+    height: 14px;
+    font-size: 0.6em;
+  }
+  
+  /* ACTIONS ULTRA COMPACTES */
+  .card-hand-actions {
+    gap: 4px;
+  }
+  
+  .refresh-all-btn {
+    padding: 6px 10px;
+    font-size: 0.7em;
+  }
+  
+  .refresh-icon {
+    font-size: 1em;
+  }
+  
+  .refresh-cost {
+    font-size: 0.7em;
+  }
+  
+  .illegal-notice, .check-notice {
+    padding: 2px 4px;
+    font-size: 0.6em;
+  }
+  
+  .card-hand-help {
+    font-size: 0.65em;
+    margin-top: 2px;
+  }
+}
+
+/* SMARTPHONE PAYSAGE - MAINS LATÉRALES */
+@media (max-width: 812px) and (orientation: landscape) and (max-height: 480px) {
+  .card-hand {
+    padding: 6px;
+    max-width: 140px;
+    background: rgba(0, 0, 0, 0.25);
+  }
+  
+  .card-hand-header {
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  
+  .player-name {
+    font-size: 0.8em;
+    writing-mode: horizontal-tb;
+  }
+  
+  .energy-display {
+    padding: 2px 6px;
+    justify-content: center;
+  }
+  
+  .energy-value {
+    font-size: 0.8em;
+  }
+  
+  /* CARTES VERTICALES EN PAYSAGE */
+  .card-slots {
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    overflow-y: auto;
+    max-height: 200px;
+  }
+  
+  .card-slot {
+    width: 80px;
+    height: 90px;
+    min-height: 90px;
+  }
+  
+  .card-content {
+    padding: 3px;
+  }
+  
+  .card-piece {
+    font-size: 1.3em !important;
+  }
+  
+  .card-type-icon {
+    font-size: 0.6em;
+  }
+  
+  .card-move {
+    font-size: 0.4em !important;
+  }
+  
+  .card-san {
+    font-size: 0.5em !important;
+  }
+  
+  .card-cost {
+    padding: 1px 3px;
+  }
+  
+  .cost-value, .cost-icon {
+    font-size: 0.6em;
+  }
+  
+  .card-hotkey {
+    width: 12px;
+    height: 12px;
+    font-size: 0.5em;
+  }
+  
+  /* ACTIONS PAYSAGE */
+  .card-hand-actions {
+    margin-top: 4px;
+  }
+  
+  .refresh-all-btn {
+    padding: 4px 8px;
+    font-size: 0.6em;
+  }
+  
+  .refresh-text {
+    display: none;
+  }
+  
+  .card-hand-help {
+    font-size: 0.6em;
+    margin-top: 2px;
+    display: none; /* Cacher en paysage */
+  }
+}
+
+/* OPTIMISATIONS TACTILES POUR LES CARTES */
+@media (pointer: coarse) {
+  .card-slot {
+    cursor: pointer;
+    /* Zone de tap améliorée */
+    position: relative;
+  }
+  
+  .card-slot::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+  }
+  
+  .card-slot:active {
+    transform: scale(1.05);
+    transition: transform 0.1s ease;
+  }
+  
+  .card-slot.playable:active {
+    transform: scale(1.1);
+  }
+  
+  .refresh-all-btn {
+    min-height: 44px; /* Taille minimum pour le tactile */
+  }
+}
+
+/* ANIMATIONS RÉDUITES SUR MOBILE */
+@media (max-width: 768px) {
+  .card-slot.playing {
+    animation-duration: 0.2s;
+  }
+  
+  .energy-burst {
+    font-size: 2.5em !important;
+  }
+  
+  .play-indicator {
+    font-size: 0.8em !important;
+  }
+  
+  @keyframes cardPlaying {
+    0% {
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      transform: scale(1.03) rotate(-1deg);
+    }
+    100% {
+      transform: scale(0.97) rotate(0deg);
+    }
+  }
+}
+
+/* ACCESSIBILITÉ MOBILE */
+@media (max-width: 768px) {
+  .card-slot:focus {
+    outline: 3px solid #ffeb3b;
+    outline-offset: 2px;
+  }
+  
+  .check-indicator {
+    animation-duration: 1s; /* Réduire la fréquence sur mobile */
+  }
+  
+  .emergency-indicator {
+    animation-duration: 1s;
+  }
+}
+
+/* GESTION MOBILE AMÉLIORÉE */
+.card-hand.mobile {
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.card-hand.mobile .card-slot {
+  -webkit-touch-callout: none;
+  position: relative;
+}
+
+.card-hand.mobile .card-slot.playable {
+  cursor: pointer;
+}
+
+.card-hand.mobile .card-slot.playable:active {
+  transform: scale(1.08);
+  transition: transform 0.1s ease;
+}
+
+/* FEEDBACK VISUEL MOBILE */
+@media (max-width: 768px) {
+  .card-slot.playable::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid rgba(46, 204, 113, 0.5);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  
+  .card-slot.playable:hover::after,
+  .card-slot.playable:active::after {
+    opacity: 1;
+  }
+  
+  /* Améliorer la visibilité des cartes illégales sur mobile */
+  .card-slot.illegal {
+    opacity: 0.7;
+    filter: grayscale(0.3);
+  }
+  
+  /* Améliorer la visibilité des cartes non abordables */
+  .card-slot.unaffordable:not(.check-emergency) {
+    opacity: 0.5;
+    filter: grayscale(0.5);
+  }
+} 

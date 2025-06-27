@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Fond gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+    <linearGradient id="energy" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffd89b"/>
+      <stop offset="100%" style="stop-color:#19547b"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Fond rond -->
+  <circle cx="256" cy="256" r="240" fill="url(#bg)" stroke="#333" stroke-width="8"/>
+  
+  <!-- Échiquier stylisé -->
+  <g transform="translate(156, 156)">
+    <!-- Cases blanches -->
+    <rect x="0" y="0" width="50" height="50" fill="#f8f8f2"/>
+    <rect x="100" y="0" width="50" height="50" fill="#f8f8f2"/>
+    <rect x="50" y="50" width="50" height="50" fill="#f8f8f2"/>
+    <rect x="150" y="50" width="50" height="50" fill="#f8f8f2"/>
+    <rect x="0" y="100" width="50" height="50" fill="#f8f8f2"/>
+    <rect x="100" y="100" width="50" height="50" fill="#f8f8f2"/>
+    <rect x="50" y="150" width="50" height="50" fill="#f8f8f2"/>
+    <rect x="150" y="150" width="50" height="50" fill="#f8f8f2"/>
+    
+    <!-- Cases noires -->
+    <rect x="50" y="0" width="50" height="50" fill="#44475a"/>
+    <rect x="150" y="0" width="50" height="50" fill="#44475a"/>
+    <rect x="0" y="50" width="50" height="50" fill="#44475a"/>
+    <rect x="100" y="50" width="50" height="50" fill="#44475a"/>
+    <rect x="50" y="100" width="50" height="50" fill="#44475a"/>
+    <rect x="150" y="100" width="50" height="50" fill="#44475a"/>
+    <rect x="0" y="150" width="50" height="50" fill="#44475a"/>
+    <rect x="100" y="150" width="50" height="50" fill="#44475a"/>
+  </g>
+  
+  <!-- Roi stylisé au centre -->
+  <g transform="translate(256, 256)">
+    <path d="M-20,-30 L-15,-40 L-5,-35 L0,-45 L5,-35 L15,-40 L20,-30 L15,-25 L20,-15 L15,0 L20,10 L15,25 L-15,25 L-20,10 L-15,0 L-20,-15 L-15,-25 Z" 
+          fill="url(#energy)" stroke="#333" stroke-width="2"/>
+    <!-- Croix du roi -->
+    <path d="M-3,-45 L3,-45 L3,-55 L-3,-55 Z M-8,-50 L8,-50 L8,-50 L-8,-50 Z" fill="#ffd89b"/>
+  </g>
+  
+  <!-- Éclairs d'énergie -->
+  <path d="M100,120 L120,140 L110,150 L130,180 L110,160 L120,170 Z" fill="#ffd89b" opacity="0.8"/>
+  <path d="M380,320 L400,340 L390,350 L410,380 L390,360 L400,370 Z" fill="#ffd89b" opacity="0.8"/>
+  <path d="M120,380 L140,400 L130,410 L150,440 L130,420 L140,430 Z" fill="#ffd89b" opacity="0.6"/>
+  
+  <!-- Texte "E" stylisé -->
+  <text x="420" y="120" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#ffd89b">E</text>
+</svg> 
