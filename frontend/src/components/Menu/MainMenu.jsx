@@ -87,6 +87,81 @@ function MainMenu() {
               </div>
             </div>
           </div>
+
+          {/* Mode Chessweeper */}
+          <div className="mode-section chessweeper-modes">
+            <h2 className="section-title">💣 Chessweeper</h2>
+            <p className="section-description">Échecs & Démineur : chaque case est un piège potentiel</p>
+            <div className="modes-row">
+              <button
+                className="mode-button chessweeper-local"
+                onClick={() => handleModeSelect('chessweeper-local')}
+              >
+                <div className="mode-icon">💣👥</div>
+                <div className="mode-content">
+                  <h3>Chessweeper 2 Joueurs</h3>
+                  <p>Déminez l'échiquier à deux</p>
+                </div>
+              </button>
+              
+              <button
+                className="mode-button chessweeper-ai"
+                onClick={() => handleModeSelect('chessweeper-ai')}
+              >
+                <div className="mode-icon">💣🤖</div>
+                <div className="mode-content">
+                  <h3>Chessweeper vs IA</h3>
+                  <p>L'IA ne vous fera aucun cadeau</p>
+                </div>
+              </button>
+            </div>
+            <div className="energy-features">
+              <div className="feature-item">
+                <span className="feature-icon">💥</span>
+                <span>Mines cachées</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">❓</span>
+                <span>Cases à révéler</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">🤯</span>
+                <span>Roi explosif = fin</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Mode PongChess */}
+          <div className="mode-section pong-chess-modes">
+            <h2 className="section-title">🏓 Pong Échecs</h2>
+            <p className="section-description">Marquez au Pong pour pouvoir jouer aux échecs !</p>
+            <div className="modes-row">
+              <button
+                className="mode-button pong-chess-local"
+                onClick={() => handleModeSelect('pongchess-local')}
+              >
+                <div className="mode-icon">🏓👥</div>
+                <div className="mode-content">
+                  <h3>PongÉchecs 2 Joueurs</h3>
+                  <p>Le duel ultime : réflexes et stratégie</p>
+                </div>
+              </button>
+            </div>
+            <div className="energy-features">
+              <div className="feature-item">
+                <span className="feature-icon">🏆</span>
+                <span>Marquez pour jouer</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">🔥</span>
+                <span>Enchaînez les coups</span>
+              </div>
+              <div className="feature-item">
+                <span className="feature-icon">⏳</span>
+                <span>Horloge Fischer</span>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div className="menu-footer">

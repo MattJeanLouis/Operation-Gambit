@@ -1,12 +1,96 @@
-# ⚡♟️ **Energy Chess - Application Android Native**
+# ♔ Operation Gambit - Energy Chess ♔
 
-> **Jeu d'échecs révolutionnaire avec système énergétique et cartes**  
-> Application Android native développée avec React + Capacitor
+**Operation Gambit** est un projet d'application de jeu d'échecs moderne et innovant, conçu pour aller au-delà des règles traditionnelles. Il propose plusieurs modes de jeu uniques qui ajoutent des couches de stratégie, de hasard et de réflexes au jeu classique. L'application est développée avec React et est conçue pour être multiplateforme (web et mobile) grâce à Capacitor.
 
-[![Android](https://img.shields.io/badge/Android-Native-green.svg)](frontend/android/)
-[![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](frontend/package.json)
-[![Capacitor](https://img.shields.io/badge/Capacitor-Latest-orange.svg)](frontend/capacitor.config.json)
-[![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)](#)
+---
+
+## 🔥 Modes de Jeu
+
+Le cœur du projet réside dans sa collection de modes de jeu uniques et créatifs.
+
+### 1. 🏛️ Échecs Classiques
+- **Joueur vs Joueur**: Le mode local traditionnel pour s'affronter sur le même appareil.
+- **Joueur vs IA**: Testez vos compétences contre l'intelligence artificielle Stockfish, avec une difficulté réglable sur 20 niveaux.
+
+### 2. ⚡ Energy Chess
+Ce mode de jeu rapide et dynamique réinvente la stratégie des échecs avec des mécaniques inspirées des jeux de cartes à collectionner.
+- **Système d'Énergie**: Chaque coup coûte de l'énergie, qui se régénère avec le temps.
+- **Main de Cartes**: Les joueurs piochent des cartes qui représentent les pièces qu'ils peuvent jouer.
+- **Gestion Stratégique**: Le coût en énergie des pièces varie, demandant une gestion fine de ses ressources pour submerger l'adversaire.
+
+### 3. 💣 Chessweeper
+Un mélange tendu entre les échecs et le Démineur. Chaque case de l'échiquier est un piège potentiel.
+- **Échiquier Miné**: Des mines sont cachées symétriquement sur le plateau au début de la partie.
+- **Révélation de Cases**: En déplaçant une pièce sur une case sûre, vous révélez le nombre de mines adjacentes, comme au Démineur.
+- **Explosions Stratégiques**: Si une pièce atterrit sur une mine, elle est retirée du jeu. Si c'est le roi, la partie est perdue !
+- **Prise de Risque**: Chaque coup est un calcul entre le gain positionnel et le risque de l'inconnu.
+
+### 4. 🏓 PongChess
+Ce mode hybride combine les réflexes du jeu d'arcade classique Pong avec la stratégie profonde des échecs.
+- **Deux Jeux en Un**: Un terrain de Pong est affiché sous l'échiquier.
+- **Marquez pour Jouer**: Les joueurs doivent marquer un point au Pong pour gagner le droit de jouer un coup aux échecs.
+- **Domination par le Rythme**: Enchaînez les points au Pong pour jouer plusieurs coups d'affilée aux échecs et prendre le contrôle de la partie.
+- **Tension Permanente**: L'action est constante, alternant entre la vitesse du Pong et la réflexion des échecs.
+
+---
+
+## 🛠️ Stack Technique
+
+- **Frontend**: [React](https://reactjs.org/)
+- **Gestion d'état**: [Zustand](https://zustand-demo.pmnd.rs/)
+- **Moteur d'échecs**: [Chess.js](https://github.com/jhlywa/chess.js)
+- **IA d'échecs**: [Stockfish](https://stockfishchess.org/) (via une API ou un worker)
+- **Mobile**: [Capacitor](https://capacitorjs.com/) pour le déploiement natif sur Android
+- **Styling**: CSS moderne avec une approche par composants
+
+---
+
+## 🚀 Lancer le Projet
+
+Pour démarrer le projet en local, suivez ces étapes :
+
+1. **Clonez le dépôt**
+   ```bash
+   git clone [URL_DU_DEPOT]
+   cd OG
+   ```
+
+2. **Installez les dépendances**
+   Assurez-vous d'avoir [Node.js](https://nodejs.org/) installé.
+   ```bash
+   npm install
+   ```
+
+3. **Lancez le serveur de développement**
+   Le projet sera accessible sur `http://localhost:3000`.
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 📂 Structure du Projet
+
+```
+OG/
+├── frontend/
+│   ├── public/         # Fichiers statiques
+│   ├── src/
+│   │   ├── components/ # Composants React réutilisables
+│   │   │   ├── Menu/
+│   │   │   ├── Energy/
+│   │   │   ├── Chessweeper/ # Renommé pour la clarté
+│   │   │   └── Pong/
+│   │   ├── hooks/      # Hooks personnalisés (ex: useStockfish)
+│   │   ├── store/      # Gestion d'état global avec Zustand (gameStore.js)
+│   │   ├── utils/      # Logique de jeu (chess.js, energyChess.js, etc.)
+│   │   ├── main.jsx    # Point d'entrée de l'application React
+│   │   └── ...
+│   ├── capacitor.config.json
+│   └── package.json
+├── android/            # Projet natif Android généré par Capacitor
+└── ...
+```
 
 ---
 

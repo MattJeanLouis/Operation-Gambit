@@ -10,6 +10,8 @@ import MainMenu from './components/Menu/MainMenu';
 import GameSetup from './components/Menu/GameSetup';
 import ChessBoard from './components/ChessBoard';
 import EnergyChessBoard from './components/Energy/EnergyChessBoard';
+import ChessweeperBoard from './components/ChessweeperBoard';
+import PongChess from './components/Pong/PongChess';
 
 // Configuration mobile Capacitor
 const initializeCapacitor = async () => {
@@ -65,14 +67,24 @@ function App() {
     return <MainMenu />;
   }
 
-  // Configuration pour les modes IA
-  if ((gameMode === 'ai' || gameMode === 'energy-ai') && !isGameStarted) {
+  // Configuration pour les modes IA ou locaux
+  if ((gameMode === 'ai' || gameMode === 'energy-ai' || gameMode === 'chessweeper-ai' || gameMode === 'pongchess-local') && !isGameStarted) {
     return <GameSetup />;
   }
 
   // Jeu en cours - modes Energy
   if (gameMode === 'energy-local' || gameMode === 'energy-ai') {
     return <EnergyChessBoard />;
+  }
+
+  // Jeu en cours - modes Chessweeper
+  if (gameMode === 'chessweeper-local' || gameMode === 'chessweeper-ai') {
+    return <ChessweeperBoard />;
+  }
+
+  // Jeu en cours - PongChess
+  if (gameMode === 'pongchess-local') {
+    return <PongChess />;
   }
 
   // Jeu en cours - modes classiques

@@ -1,0 +1,84 @@
+.pong-chess-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.pong-chess-header {
+  width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a2a2a;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.pong-chess-header h2 {
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.pong-chess-score {
+  font-size: 1.6em;
+  font-weight: bold;
+}
+
+.pong-chess-turn-indicator {
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: all 0.3s;
+}
+
+.turn-white {
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 0 10px #fff;
+}
+
+.turn-black {
+  background-color: #000;
+  color: #fff;
+  box-shadow: 0 0 10px #555;
+}
+
+.chess-area-wrapper {
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+.chess-area-wrapper.disabled {
+  opacity: 0.6;
+  filter: grayscale(80%);
+  pointer-events: none;
+}
+
+.pong-chess-controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.pong-chess-controls button {
+  background-color: #007bff;
+  color: #eee;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.pong-chess-controls button:hover {
+  background-color: #0056b3;
+} 
